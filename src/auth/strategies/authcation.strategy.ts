@@ -6,7 +6,7 @@ import { User } from 'src/user/entities/user.entity'
 import { UserService } from 'src/user/user.service'
 
 @Injectable()
-export class AuthcationStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class AuthcationStrategy extends PassportStrategy(Strategy, 'authcation') {
   constructor (
     private readonly userService: UserService,
     readonly configService: ConfigService
