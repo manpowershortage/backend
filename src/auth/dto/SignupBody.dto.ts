@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsOptional, MaxLength, MinLength } from 'class-validator'
 
 export class SignupBody {
   @IsNotEmpty()
@@ -6,15 +6,18 @@ export class SignupBody {
     email: string
 
   @IsNotEmpty()
+  @MinLength(6)
     password: string
 
   @IsNotEmpty()
+  @MaxLength(32)
     username: string
 
   @IsNotEmpty()
     age: number
 
   @IsOptional()
+  @MaxLength(255)
     bio?: string
 
   @IsOptional()

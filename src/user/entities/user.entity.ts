@@ -9,7 +9,7 @@ export class User {
   @Column({ name: 'email', type: 'varchar', length: 255 })
     email: string
 
-  @Column({ name: 'username', type: 'varchar', length: 255 })
+  @Column({ name: 'username', type: 'varchar', length: 32 })
     username: string
 
   @Column({ name: 'image', type: 'varchar', length: 255, nullable: true })
