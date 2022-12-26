@@ -77,10 +77,16 @@ export class GroupService {
     if (group == null) throw new ForbiddenException('Group not found')
     if (group.ownerId !== userId) throw new ForbiddenException('You are not the owner of the group')
 
-    const { name, description, password, isConfirm, isPrivate, maxUserCount } = body
+    const { password } = body
     let salt: string | null = null
     if (password != null) salt = shajs('sha512').update(Math.random().toString()).digest('hex').slice(0, 8) as string
     const hashedPassword = password != null && salt != null ? shajs('sha512', password + salt).digest('hex') : null
+
+    await this.groupRepository.update({ groupId }, {
+      ...body,
+      password: hashedPassword ?? undefined,
+      salt: salt ?? undefined
+    })
 
     const updatedGroup = await this.groupRepository.findOne({ where: { groupId } })
     if (updatedGroup == null) throw new ForbiddenException('Group not found')
